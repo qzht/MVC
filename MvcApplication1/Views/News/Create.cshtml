@@ -1,0 +1,48 @@
+﻿@model MvcApplication1.Models.NewsEntity
+
+@{
+    ViewBag.Title = "添加新闻";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    添加新闻</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/kindeditor/kindeditor.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/kindeditor/lang/zh_CN.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="Information"]', {
+            allowFileManager: true,
+             allowUpload: false
+        });
+    });
+</script>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>News</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Title, new { style = "width:500px" })
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Information)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Information, new { style="width:800px;height:400px"})
+            @Html.ValidationMessageFor(model => model.Information)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("返回列表", "News")
+</div>
